@@ -25,4 +25,8 @@ public class FileManagerController {
         //给客户端返回数据
         SocketConnect.sendAnwswerToClient(socket,answer);
     }
+
+    public void search(Socket socket, MessageBody messageBody) {
+
+    }
 }

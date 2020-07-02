@@ -46,10 +46,13 @@ public class FileManagerDispatcher {
                     break;
                 }
                 case "/update":{
+                    log.info("接收的数据："+messageBody.getMessageBodyJSON());
                     fileManagerController.update(this.socket,messageBody);
                     break;
                 }
                 case "/search":{
+                    log.info("接收的数据："+messageBody.getMessageBodyJSON());
+                    fileManagerController.search(this.socket, messageBody);
                     break;
                 }
                 case "null":{

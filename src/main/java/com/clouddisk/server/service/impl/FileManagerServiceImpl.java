@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
-import java.util.UUID;
 @Slf4j
 @Component("fileManagerService")@Scope("prototype")
 public class FileManagerServiceImpl implements FileManagerService {
@@ -43,35 +42,36 @@ public class FileManagerServiceImpl implements FileManagerService {
         return answer;
     }
     private boolean receiveFile(String fileName, Socket socket){
-        File file = new File(fileFolder+"/"+ UUID.randomUUID().toString()+"_"+fileName);
+        File file = new File(fileFolder+ fileName);
         BufferedOutputStream bos=null;
         BufferedInputStream bis = null;
+        DataInputStream dis =null;
         try {
             bis=new BufferedInputStream(socket.getInputStream());
+            dis = new DataInputStream(bis);
             bos = new BufferedOutputStream(new FileOutputStream(file));
+
+            long length = dis.readLong();
             byte[] b = new byte[1024];
-            int len=0;
-            while ((len=bis.read(b))!=-1){
+            int len = 0;
+            long sum = 0L;
+            while ((sum+=(len=bis.read(b)))!=length){
                 bos.write(b,0,len);
             }
+            log.info("文件接收结束");
+            bos.flush();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            log.info("接收文件失败");
+            return false;
         }finally {
-            if (bis!=null){
-                try {
-                    bis.close();
-                } catch (IOException e) {
-                }
-            }
             if (bos!=null){
                 try {
                     bos.close();
                 } catch (IOException e) {
                 }
             }
-            log.info("接收文件失败");
-            return false;
         }
 
     }

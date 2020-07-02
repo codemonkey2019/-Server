@@ -8,5 +8,5 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis.mapper/*.xml
 
-cacheFolder: "C:/MyCloudDisk/cache/"
+cacheFolder: "C:/MyCloudDisk/KFcache/"
 fileFolder: "C:/MyCloudDisk/SMFileCache/"

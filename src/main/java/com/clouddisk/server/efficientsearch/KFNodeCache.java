@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class KFNodeCache {
-    public static final String CACHE_PATH="C:/MyCloudDisk/cache/KFNode.cache";
+    public static final String CACHE_PATH="C:/MyCloudDisk/KFcache/KFNode.cache";
     private Map<String, Node> KFNodeCache = new ConcurrentHashMap<>();
 
     public void addKFNode(KFNode kfNode){
