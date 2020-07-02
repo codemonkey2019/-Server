@@ -65,6 +65,7 @@ public class ServerApplication implements CommandLineRunner {
                     String user = socket.getInetAddress().getHostName();
                     String ip = socket.getInetAddress().getHostAddress();
                     log.info("用户" + user + "建立连接");
+
                     //为每一个请求开一个处理登录注册的线程
                     UserManagerDispatcherThread userManagerDispatcherThread = ApplicationContextProvider.getBean(UserManagerDispatcherThread.class);
                     userManagerDispatcherThread.getUserManagerDispatcherRun().setSocket(socket);

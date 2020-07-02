@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SearchResponse implements Serializable {
+public class SearchAnswer implements Serializable {
     private boolean success;
     private List<String> fileNames;
 }
