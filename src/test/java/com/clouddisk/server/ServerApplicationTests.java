@@ -14,6 +14,6 @@ class ServerApplicationTests {
     void contextLoads() {
         User user = new User(null,"lisi","123");
         System.out.println(userMapper.selectByUserNameAndPassword(user));
+        System.out.println(userMapper.registUserByNamePassword(user));
     }
-
 }

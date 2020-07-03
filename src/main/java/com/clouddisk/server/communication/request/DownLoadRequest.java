@@ -5,11 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest implements UserManagerRequest, Serializable {
-    private String userName;
-    private String password;
+public class DownLoadRequest implements Serializable {
+    private List<String> selectedFiles;
 }

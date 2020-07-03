@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest implements UserManagerRequest, Serializable {
+public class RegistRequest implements UserManagerRequest, Serializable {
     private String userName;
     private String password;
 }

@@ -1,15 +1,16 @@
-package com.clouddisk.server.communication.request;
+package com.clouddisk.server.thread;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import java.net.Socket;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest implements UserManagerRequest, Serializable {
+@Data
+public class ConnectedUser {
     private String userName;
     private String password;
+    private Socket socket;
 }

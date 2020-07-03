@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest implements UserManagerRequest, Serializable {
-    private String userName;
-    private String password;
+@AllArgsConstructor
+public class SearchRequest implements Serializable {
+    private String tw;
+    private String stc;
+    private Set<String> D;
 }
