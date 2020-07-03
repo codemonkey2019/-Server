@@ -72,33 +72,38 @@ public class SocketConnect {
     }
     public static boolean receiveFile(String path, Socket socket){
         File file = new File(path);
-        BufferedOutputStream bos=null;
-        BufferedInputStream bis = null;
+        DataOutputStream bos=null;
         DataInputStream dis =null;
         try {
-            bis=new BufferedInputStream(socket.getInputStream());
-            dis = new DataInputStream(bis);
-            bos = new BufferedOutputStream(new FileOutputStream(file));
-
+            dis = new DataInputStream(socket.getInputStream());
+            bos = new DataOutputStream(new FileOutputStream(file));
             long length = dis.readLong();
             byte[] b = new byte[1024];
             int len = 0;
             long sum = 0L;
-            while ((sum+=(len=bis.read(b)))!=length){
+            while (true){
+                if (length==sum){
+                    break;
+                }
+                len = dis.read(b);
+                sum+=len;
                 bos.write(b,0,len);
+                bos.flush();
             }
-            bos.flush();
+            bos.close();
+            File file1 = new File(path);
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }finally {
-            if (bos!=null){
-                try {
-                    bos.close();
-                } catch (IOException e) {
-                }
-            }
+//            if (bos!=null){
+//                try {
+//                    bos.close();
+//                } catch (IOException e) {
+//                }
+//            }
         }
 
     }
