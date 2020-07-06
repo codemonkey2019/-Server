@@ -42,10 +42,10 @@ public class ServerApplication implements CommandLineRunner {
         File folder1 = new File(cacheFolder);
         File folder2 = new File(fileFolder);
         if (!folder1.exists()||!folder1.isDirectory()){
-            folder1.mkdir();
+            folder1.mkdirs();
         }
         if (!folder2.exists()||!folder2.isDirectory()){
-            folder2.mkdir();
+            folder2.mkdirs();
         }
         File file = new File(KFNodeCache.CACHE_PATH);
         if (file.exists()) {
