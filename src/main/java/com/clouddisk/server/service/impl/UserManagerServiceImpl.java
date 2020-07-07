@@ -10,12 +10,14 @@ import com.clouddisk.server.service.UserManagerService;
 import com.clouddisk.server.util.InformationCast;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("userManagerService")
 public class UserManagerServiceImpl implements UserManagerService {
     @Autowired
     private UserDao userDao;
     @Override
+    @Transactional
     public LoginAnswer login(LoginRequest loginRequest) {
         User user = InformationCast.loginRequestToUser(loginRequest);
         //执行登录
@@ -26,6 +28,7 @@ public class UserManagerServiceImpl implements UserManagerService {
     }
 
     @Override
+    @Transactional
     public RegistAnswer regist(RegistRequest request) {
         User user = InformationCast.loginRequestToUser(request);
         //执行注册
