@@ -47,22 +47,22 @@ public class FileManagerDispatcher {
                 }
                 case "/update":{
                     log.info("接收的数据："+messageBody);
-                    fileManagerController.update(this.socket,messageBody);
+                    fileManagerController.update(connectedUser,messageBody);
                     break;
                 }
                 case "/search":{
                     log.info("接收的数据："+messageBody);
-                    fileManagerController.search(this.socket, messageBody);
+                    fileManagerController.search(connectedUser, messageBody);
                     break;
                 }
                 case "/download":{
                     log.info("接收的数据："+messageBody);
-                    fileManagerController.download(socket,messageBody);
+                    fileManagerController.download(connectedUser,messageBody);
                     break;
                 }
                 case "/searchAll":{
                     log.info("接收的数据："+messageBody);
-                    fileManagerController.searchAll(this.socket);
+                    fileManagerController.searchAll(connectedUser);
                     break;
                 }
                 case "null":{
