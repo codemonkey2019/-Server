@@ -5,6 +5,8 @@ import com.clouddisk.server.communication.request.LoginRequest;
 import com.clouddisk.server.communication.request.RegistRequest;
 import com.clouddisk.server.communication.response.LoginAnswer;
 import com.clouddisk.server.communication.response.RegistAnswer;
+import com.clouddisk.server.efficientsearch.KFNodeCache;
+import com.clouddisk.server.efficientsearch.KFNodeCacheManager;
 import com.clouddisk.server.service.UserManagerService;
 import com.clouddisk.server.thread.ConnectedUser;
 import com.clouddisk.server.thread.UserManager;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.net.Socket;
 
 /**
@@ -28,6 +31,8 @@ public class UserManagerController {
     private UserManager userManager;
     @Autowired
     private UserManagerService userManagerService;
+    @Autowired
+    private KFNodeCacheManager kfNodeCacheManager;
 
     @RequestPath("/login")
     public boolean login(Socket socket, MessageBody messageBody){
@@ -35,8 +40,18 @@ public class UserManagerController {
         LoginRequest request = InformationCast.messageBodyToRequestBody(messageBody,LoginRequest.class);
         LoginAnswer answer =userManagerService
                 .login(request);
-        //缓存中加一个
+        //缓存中加一个,创建必要的文件夹
         if (answer.getSuccess()) {
+            File f1 = new File("C:/MyCloudDisk/server/"+request.getUserName()+"/SMFileCache/");
+            if (!f1.exists()) {
+                f1.mkdirs();
+            }
+            File f2 = new File("C:/MyCloudDisk/server/"+request.getUserName()+"/KFcache/");
+            if (!f2.exists()) {
+                f2.mkdirs();
+            }
+            kfNodeCacheManager.addKFNodeCacheByUserName(request.getUserName(),new KFNodeCache());
+            kfNodeCacheManager.loadCache(request.getUserName());
             userManager.add(request.getUserName()
                     ,new ConnectedUser(request.getUserName(),request.getPassword(),socket));
         }

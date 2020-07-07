@@ -1,16 +1,12 @@
 package com.clouddisk.server.efficientsearch;
 
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-@Component
 public class KFNodeCache {
-    public static final String CACHE_PATH="C:/MyCloudDisk/KFcache/KFNode.cache";
-    private Map<String, Node> KFNodeCache = new ConcurrentHashMap<>();
+    private Map<String, Node> KFNodeCache = new HashMap<>();
 
     public void addKFNode(KFNode kfNode){
         this.KFNodeCache.put(kfNode.getU(),kfNodeToNode(kfNode));

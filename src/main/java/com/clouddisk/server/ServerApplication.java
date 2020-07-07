@@ -2,20 +2,16 @@ package com.clouddisk.server;
 
 import com.clouddisk.server.config.ApplicationContextProvider;
 import com.clouddisk.server.config.MyConfig;
-import com.clouddisk.server.efficientsearch.CacheManager;
-import com.clouddisk.server.efficientsearch.KFNodeCache;
 import com.clouddisk.server.thread.UserManagerCacheThread;
 import com.clouddisk.server.thread.UserManagerDispatcherThread;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-import java.io.File;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -24,12 +20,6 @@ import java.net.Socket;
 @Slf4j
 @Import(MyConfig.class)
 public class ServerApplication implements CommandLineRunner {
-    @Value("${cacheFolder}")
-    private String cacheFolder;
-    @Value("${fileFolder}")
-    private String fileFolder;
-    @Autowired
-    private CacheManager cacheManager;
     @Autowired
     private UserManagerCacheThread cacheThread;
 
@@ -39,20 +29,6 @@ public class ServerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        File folder1 = new File(cacheFolder);
-        File folder2 = new File(fileFolder);
-        if (!folder1.exists()||!folder1.isDirectory()){
-            folder1.mkdirs();
-        }
-        if (!folder2.exists()||!folder2.isDirectory()){
-            folder2.mkdirs();
-        }
-        File file = new File(KFNodeCache.CACHE_PATH);
-        if (file.exists()) {
-            //加载缓存文件
-            cacheManager.loadCache();
-        }
-
         new Thread(() -> {
             ServerSocket serverSocket = null;
             try {
