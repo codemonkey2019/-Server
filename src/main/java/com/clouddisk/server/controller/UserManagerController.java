@@ -25,7 +25,8 @@ import java.net.Socket;
  * 3、应答信息返回
  * 4、UserManager中添加记录
  */
-@Component@Scope("prototype")
+@Component
+@Scope("prototype")
 public class UserManagerController {
     @Autowired
     private UserManager userManager;
