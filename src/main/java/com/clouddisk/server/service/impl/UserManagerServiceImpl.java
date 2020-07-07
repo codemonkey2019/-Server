@@ -9,10 +9,9 @@ import com.clouddisk.server.entity.User;
 import com.clouddisk.server.service.UserManagerService;
 import com.clouddisk.server.util.InformationCast;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-@Service("userManagerService")@Scope("prototype")
+@Service("userManagerService")
 public class UserManagerServiceImpl implements UserManagerService {
     @Autowired
     private UserDao userDao;

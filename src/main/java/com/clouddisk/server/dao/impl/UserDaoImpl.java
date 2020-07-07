@@ -4,12 +4,11 @@ import com.clouddisk.server.dao.UserDao;
 import com.clouddisk.server.entity.User;
 import com.clouddisk.server.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("userDao")@Scope("prototype")
+@Repository("userDao")
 public class UserDaoImpl implements UserDao {
     @Autowired
     private UserMapper mapper;

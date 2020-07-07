@@ -15,7 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 @Slf4j
-@Component@Scope("prototype")
+@Component
+@Scope("prototype")
 public class FileManagerController {
     @Autowired
     private FileManagerService fileManagerService;
