@@ -3,7 +3,7 @@ package com.clouddisk.server;
 import com.clouddisk.server.config.ApplicationContextProvider;
 import com.clouddisk.server.config.MyConfig;
 import com.clouddisk.server.thread.UserManagerCacheThread;
-import com.clouddisk.server.thread.UserManagerDispatcherThread;
+import com.clouddisk.server.thread.UserManagerDispatcherRun;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Import;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @MapperScan("com.clouddisk.server.mapper")
@@ -22,7 +23,8 @@ import java.net.Socket;
 public class ServerApplication implements CommandLineRunner {
     @Autowired
     private UserManagerCacheThread cacheThread;
-
+    @Autowired
+    private Executor userManagerExecutor;
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
     }
@@ -39,13 +41,11 @@ public class ServerApplication implements CommandLineRunner {
                     log.info("等待连接");
                     Socket socket = serverSocket.accept();//建立与服务器的连接
                     String user = socket.getInetAddress().getHostName();
-                    String ip = socket.getInetAddress().getHostAddress();
                     log.info("用户" + user + "建立连接");
-
-                    //为每一个请求开一个处理登录注册的线程
-                    UserManagerDispatcherThread userManagerDispatcherThread = ApplicationContextProvider.getBean(UserManagerDispatcherThread.class);
-                    userManagerDispatcherThread.getUserManagerDispatcherRun().setSocket(socket);
-                    userManagerDispatcherThread.start();
+                    //将登录任务放入执行器
+                    UserManagerDispatcherRun run = ApplicationContextProvider.getBean(UserManagerDispatcherRun.class);
+                    run.setSocket(socket);
+                    userManagerExecutor.execute(run);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
