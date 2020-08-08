@@ -3,11 +3,12 @@ package com.clouddisk.server.config;
 import com.cryptotool.block.DIG;
 import com.cryptotool.digests.DigestFactory;
 import com.cryptotool.digests.MyDigest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.*;
-
+@Slf4j
 @Configuration
 public class MyConfig {
     @Bean

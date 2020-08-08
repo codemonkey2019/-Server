@@ -1,6 +1,7 @@
 package com.clouddisk.server.efficientsearch;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.*;

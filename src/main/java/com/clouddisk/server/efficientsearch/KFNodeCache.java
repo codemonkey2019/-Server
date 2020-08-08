@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+/**
+ * 代表一个用户的Server端的EDB
+ */
 public class KFNodeCache {
     private Map<String, Node> KFNodeCache = new HashMap<>();
 

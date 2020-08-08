@@ -39,7 +39,7 @@ public class ServerApplication implements CommandLineRunner {
                 cacheThread.start();
                 while (true) {
                     log.info("等待连接");
-                    Socket socket = serverSocket.accept();//建立与服务器的连接
+                    final Socket socket = serverSocket.accept();//建立与服务器的连接
                     String user = socket.getInetAddress().getHostName();
                     log.info("用户" + user + "建立连接");
                     //将登录任务放入执行器
