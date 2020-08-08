@@ -51,8 +51,8 @@ public class UserManagerController {
             if (!f2.exists()) {
                 f2.mkdirs();
             }
-            kfNodeCacheManager.addKFNodeCacheByUserName(request.getUserName(),new KFNodeCache());
-            kfNodeCacheManager.loadCache(request.getUserName());
+            kfNodeCacheManager.addKFNodeCacheByUserName(request.getUserName(),new KFNodeCache());//在内存中为该用户读取它的EDB
+            kfNodeCacheManager.loadCache(request.getUserName());//装载该用户的EDB
             userManager.add(request.getUserName()
                     ,new ConnectedUser(request.getUserName(),request.getPassword(),socket));
         }
