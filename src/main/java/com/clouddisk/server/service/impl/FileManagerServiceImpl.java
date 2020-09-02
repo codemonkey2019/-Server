@@ -111,7 +111,11 @@ public class FileManagerServiceImpl implements FileManagerService {
         while(stc!=null){
             u= sm3Digist.getDigest(tw+stc);
             Node node = kfNodeCacheManager.getNodeByUserNameAndKey(name,u);
+            if(node==null){
+                return new ArrayList<>();
+            }
             StateAndInd stateAndInd = hashOplusHexGetStateAndInd(u, node.getE());
+
             for(String dj: D){
                 checks.add(sm3Digist.getDigest(stc+dj));
             }
